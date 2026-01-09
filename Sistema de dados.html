@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RPG Dice Roller</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #1a1a2e;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background-color: #16213e;
+      padding: 2rem;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      text-align: center;
+      width: 90%;
+      max-width: 500px;
+    }
+
+    h1 {
+      color: #e94560;
+    }
+
+    .dice-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    button {
+      padding: 10px;
+      cursor: pointer;
+      background-color: #0f3460;
+      border: 2px solid #e94560;
+      color: white;
+      border-radius: 8px;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background-color: #e94560;
+      transform: translateY(-2px);
+    }
+
+    #result-display {
+      font-size: 3rem;
+      margin-top: 20px;
+      height: 60px;
+      color: #4ecca3;
+      text-shadow: 0 0 10px rgba(78, 204, 163, 0.5);
+    }
+
+    .history {
+      margin-top: 20px;
+      font-size: 0.9rem;
+      color: #999;
+      max-height: 100px;
+      overflow-y: auto;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <h1>🎲 RPG Dice Roller</h1>
+    <p>Escolha um dado para rolar:</p>
+
+    <div class="dice-grid">
+      <button onclick="rollDice(4)">D4</button>
+      <button onclick="rollDice(6)">D6</button>
+      <button onclick="rollDice(8)">D8</button>
+      <button onclick="rollDice(10)">D10</button>
+      <button onclick="rollDice(12)">D12</button>
+      <button onclick="rollDice(20)">D20</button>
+      <button onclick="rollDice(100)">D100</button>
+    </div>
+
+    <div id="result-display">--</div>
+
+    <div class="history" id="history">
+      Role os dados para ver o histórico...
+    </div>
+  </div>
+
+  <script>
+    function rollDice(sides) {
+      const resultDisplay = document.getElementById('result-display');
+      const historyDiv = document.getElementById('history');
+      // Efeito de "girando" rápido
+      resultDisplay.style.opacity = "0.5";
+      setTimeout(() => {
+        const roll = Math.floor(Math.random() * sides) + 1;
+        resultDisplay.innerText = roll;
+        resultDisplay.style.opacity = "1";
+        // Adicionar ao histórico
+        const newRecord = document.createElement('div');
+        newRecord.innerText = `Rolou D${sides}: ${roll}`;
+        historyDiv.prepend(newRecord);
+      }, 100);
+    }
+  </script>
+</body>
+
+</html>
